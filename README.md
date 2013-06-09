@@ -6,13 +6,16 @@ Make journal exectuable:
 
 ```bash
 chmod +x journal
+```
 
 To open a new journal text file:
 
 ```bash
 journal
+```
 
 To convert your journal files into html and open in the browser:
 
 ```bash
 journal read
+```
