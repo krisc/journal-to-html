@@ -1,0 +1,13 @@
+#!/bin/bash
+# open a journal entry for today
+
+if [ $1 == read ]
+  then
+    ruby ~/bin/journal-to-html.rb /home/kris/doc/writings/journal*
+    firefox /home/kris/doc/writings/journal-00000000.html # change to your browser of choice (i.e. chrome)
+  else
+    ENTRY="/home/kris/doc/writings/journal-`date +%Y%m%d`"
+    pluma $ENTRY # change to your editor of choice (i.e. gedit)
+fi
+
+
