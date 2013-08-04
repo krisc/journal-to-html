@@ -18,7 +18,6 @@ def html_gen ( entry, date, dates )
   if entry.class != String
     raise Exception, "Not valid entry!"
   else
-
     # strip date into pieces
     year = date[-8, 4]
     month = @@months[ date[-4, 2] ]
@@ -33,17 +32,28 @@ def html_gen ( entry, date, dates )
       sidebar << "<a href=\"" + d + ".html\">" + s_month + " " + s_day + ", " + s_year + "</a><br>"
     end
   
+    # gen code for prev and next navigation
+    i_entry = dates.index(date)
+    i_prev = i_entry > 0 ? i_entry - 1 : dates.length - 1
+    i_next = i_entry == dates.length - 1 ? 0 : i_entry + 1
+    puts dates[i_prev]
+
     # gen code for main body of page
-    temp1 = "<html><body><h1>Journal: " + month + " " + day + ", " + year + "</h1><table width=\"100%\"><tr><td width=\"10%\"><font size=\"2\">"
+    temp1 = "<html><body><h1>Journal: " + month + " " + day + ", " + year +
+            "</h1><table width=\"100%\"><tr><td width=\"10%\"><font size=\"2\">"
     temp2 = "</font></td><td valign=\"top\" width=\"80%\">"
+    navi  = "<p><a href=\"" + dates[i_prev] + ".html\">" + "Previous " + "</a><a href=\"" + dates[i_next] + ".html\">" + " Next</a>"
     temp3 = "</td></tr></body></html>"
-              
+    
+          
     # make an html directory 
-    #`mkdir ./html/` if `ls ./html/`=="" # NOTE: this script only works when your in the current directory of journal files
+    #`mkdir ./html/` if `ls ./html/`==""
+    # NOTE: this script only works when your in the current directory of
+    #       journal files
 
     # create an html file
     File::open( date + ".html", "w" ) do |f|
-      f << temp1 + sidebar + temp2 + entry + temp3
+      f << temp1 + sidebar + temp2 + navi + "<br><br>" + entry + "<br><br>" + navi + temp3
     end
   end
 end
@@ -56,7 +66,8 @@ def gen_all ( entries )
 
   #puts dates
 
-  # read a journal file, substitute \n with <br>'s, then generate html for that entry
+  # read a journal file, substitute \n with <br>'s, then generate html for
+  # that entry
   dates.each do |date|
     next unless date
     f = File::read( date )

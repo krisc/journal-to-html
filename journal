@@ -3,7 +3,7 @@
 
 if [ $1 == read ]
   then
-    ruby ~/bin/journal-to-html.rb /home/kris/doc/writings/journal*
+    ruby ~/bin/journal-to-html/journal-to-html.rb /home/kris/doc/writings/journal*
     firefox /home/kris/doc/writings/journal-00000000.html # change to your browser of choice (i.e. chrome)
   else
     ENTRY="/home/kris/doc/writings/journal-`date +%Y%m%d`"
